@@ -2,7 +2,7 @@ message(STATUS "Github info library")
 
 add_library(
   github_info
-  src/github_info.cpp
+  src/github_info_impl.cpp
   src/httplib_requester.cpp
 )
 

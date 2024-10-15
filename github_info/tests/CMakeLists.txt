@@ -2,7 +2,14 @@ message(STATUS "Building github_info unit tests")
 
 add_executable(
   github_info_unit_tests
-  unit_tests.cpp
+  src/unit_tests.cpp
+  src/mock_requester.cpp
+)
+
+target_include_directories(
+  github_info_unit_tests
+  PUBLIC
+  ${CMAKE_CURRENT_LIST_DIR}/include
 )
 
 find_package(GTest CONFIG REQUIRED)
@@ -11,7 +18,6 @@ target_link_libraries(
   github_info_unit_tests
   PRIVATE
   github_info
-  httplib::httplib
   GTest::gtest_main
 )
 

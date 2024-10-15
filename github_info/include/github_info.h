@@ -1,25 +1,15 @@
 #pragma once
 
-#include <memory>
 #include <optional>
 #include <string>
-
-#include "requester.h"
 
 namespace jjfp::github_info {
 
 class GithubInfo {
  public:
-  GithubInfo(std::unique_ptr<Requester>& requester, std::string token);
+  virtual std::optional<std::string> user() const = 0;
 
-  std::optional<std::string> user() const;
-
-  static std::string print_version();
-
- private:
-  std::unique_ptr<Requester> requester_;
-
-  std::unordered_map<std::string, std::string> headers_;
+  virtual std::string print_version() = 0;
 };
 
 }  // namespace jjfp::github_info

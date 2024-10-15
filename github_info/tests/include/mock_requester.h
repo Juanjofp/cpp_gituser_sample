@@ -1,17 +1,15 @@
 #pragma once
 
-#include <httplib.h>
-
 #include <string>
 
 #include "requester.h"
 
-namespace jjfp::github_info {
+namespace jjfp::github_info::tests {
 
-class HttpLibRequester : public Requester {
+class MockRequester : public Requester {
  public:
-  HttpLibRequester();
-  ~HttpLibRequester();
+  MockRequester() = default;
+  ~MockRequester();
 
   virtual void init(std::string host) override;
 
@@ -22,8 +20,12 @@ class HttpLibRequester : public Requester {
   virtual std::optional<std::string> post(const std::string& url,
                                           const std::string& data) override;
 
+  void fail_response(bool fail);
+
  private:
-  std::unique_ptr<httplib::Client> cli_;
+  static std::string get_response(std::string url);
+
+  bool return_failed_{false};
 };
 
-}  // namespace jjfp::github_info
+}  // namespace jjfp::github_info::tests

@@ -1,24 +1,23 @@
 #include <iostream>
 
-#include "github_info.h"
+#include "github_info_impl.h"
+#include "githubapp.h"
 #include "httplib_requester.h"
 
-using namespace jjfp::github_info;
+using namespace jjfp::githubapp;
 
 int main() {
   std::cout << "Sample app for GithubInfo lib!" << std::endl;
 
-  std::cout << "Version: " << GithubInfo::print_version() << std::endl;
+  std::string test_token{"fake_token"};
 
-  std::unique_ptr<Requester> requester = std::make_unique<HttpLibRequester>();
+  auto requester = std::make_shared<jjfp::github_info::HttpLibRequester>();
 
-  std::string test_token{};
+  auto github_info = jjfp::github_info::GithubInfoImpl{requester, test_token};
 
-  GithubInfo github_info{requester, test_token};
+  auto app = GithubApp{github_info};
 
-  auto user = github_info.user();
-
-  std::cout << "User: " << user.value_or("No user found") << std::endl;
+  app.show_user_info();
 
   return 0;
 }

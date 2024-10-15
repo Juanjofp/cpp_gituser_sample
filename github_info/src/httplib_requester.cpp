@@ -3,6 +3,12 @@
 namespace jjfp::github_info {
 HttpLibRequester::HttpLibRequester() : cli_{nullptr} {}
 
+HttpLibRequester::~HttpLibRequester() {
+  cli_->stop();
+
+  std::cout << "Destroying HttpLibRequester" << std::endl;
+}
+
 void HttpLibRequester::init(std::string host) {
   cli_ = std::make_unique<httplib::Client>(host);
 
