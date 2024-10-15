@@ -42,3 +42,27 @@ TEST_F(GithubTests, GetInformationAboutUser) {
 
   ASSERT_THAT(github_info.user().value(), Eq(me));
 }
+
+TEST_F(GithubTests, CompareSameUsersEqual) {
+  GithubUser me{"Juanjofp", 446496,
+                "https://avatars.githubusercontent.com/u/446496?v=4",
+                "https://api.github.com/users/Juanjofp"};
+
+  GithubUser other{"Juanjofp", 446496,
+                   "https://avatars.githubusercontent.com/u/446496?v=4",
+                   "https://api.github.com/users/Juanjofp"};
+
+  ASSERT_THAT(me, Eq(other));
+}
+
+TEST_F(GithubTests, CompareDifferentUsersNotEqual) {
+  GithubUser me{"Juanjofp", 446496,
+                "https://avatars.githubusercontent.com/u/446496?v=4",
+                "https://api.github.com/users/Juanjofp"};
+
+  GithubUser other{"Juanjofp2", 99999,
+                   "https://avatars.githubusercontent.com/u/446496?v=4",
+                   "https://api.github.com/users/Juanjofp"};
+
+  ASSERT_THAT(me, Ne(other));
+}

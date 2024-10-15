@@ -25,9 +25,7 @@ GithubInfoImpl::~GithubInfoImpl() {
 
 std::optional<GithubUser> GithubInfoImpl::user() const {
   if (auto res = requester_->get("/user", headers_); res.has_value()) {
-    return GithubUser{"Juanjofp", 446496,
-                      "https://avatars.githubusercontent.com/u/446496?v=4",
-                      "https://api.github.com/users/Juanjofp"};
+    return GithubUser::from_json(res.value());
   }
 
   return std::nullopt;
