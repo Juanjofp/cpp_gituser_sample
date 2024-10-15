@@ -19,12 +19,15 @@ GithubInfoImpl::GithubInfoImpl(const std::shared_ptr<Requester> &requester,
   headers_["X-GitHub-Api-Version"] = "2022-11-28";
 }
 
-std::optional<std::string> GithubInfoImpl::user() const {
-  std::cout << "?????? user() Requester references count: "
-            << requester_.use_count() << std::endl;
+GithubInfoImpl::~GithubInfoImpl() {
+  std::cout << "Destroying GithubInfoImpl" << std::endl;
+}
 
+std::optional<GithubUser> GithubInfoImpl::user() const {
   if (auto res = requester_->get("/user", headers_); res.has_value()) {
-    return res;
+    return GithubUser{"Juanjofp", 446496,
+                      "https://avatars.githubusercontent.com/u/446496?v=4",
+                      "https://api.github.com/users/Juanjofp"};
   }
 
   return std::nullopt;

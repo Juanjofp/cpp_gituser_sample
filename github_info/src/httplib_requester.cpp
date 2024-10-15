@@ -1,7 +1,9 @@
 #include "httplib_requester.h"
 
 namespace jjfp::github_info {
-HttpLibRequester::HttpLibRequester() : cli_{nullptr} {}
+HttpLibRequester::HttpLibRequester() : cli_{nullptr} {
+  std::cout << "Creating HttpLibRequester" << std::endl;
+}
 
 HttpLibRequester::~HttpLibRequester() {
   cli_->stop();

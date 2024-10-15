@@ -13,8 +13,9 @@ class GithubInfoImpl : public GithubInfo {
  public:
   GithubInfoImpl(const std::shared_ptr<Requester>& requester,
                  std::string token);
+  ~GithubInfoImpl();
 
-  std::optional<std::string> user() const override;
+  std::optional<GithubUser> user() const override;
 
   std::string print_version() override;
 

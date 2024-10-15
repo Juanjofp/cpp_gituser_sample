@@ -4,6 +4,7 @@ add_library(
   github_info
   src/github_info_impl.cpp
   src/httplib_requester.cpp
+  src/githubuser.cpp
 )
 
 target_include_directories(
