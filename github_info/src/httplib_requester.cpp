@@ -15,6 +15,7 @@ void HttpLibRequester::init(std::string host) {
   cli_ = std::make_unique<httplib::Client>(host);
 
   cli_->set_follow_location(true);
+  cli_->enable_server_certificate_verification(false);
 }
 
 std::optional<std::string> HttpLibRequester::get(
@@ -28,13 +29,13 @@ std::optional<std::string> HttpLibRequester::get(
 
   std::for_each(headers.begin(), headers.end(),
                 [&httpHeader](const auto& header) {
-                  httpHeader.emplace(header.first, header.second);
+                  httpHeader.insert({header.first, header.second});
                 });
 
   auto res = cli_->Get(url, httpHeader);
 
   if (!res) {
-    std::cout << "No response received" << std::endl;
+    std::cout << "No response received " << res << std::endl;
 
     return std::nullopt;
   }

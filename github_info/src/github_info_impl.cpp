@@ -11,10 +11,7 @@ GithubInfoImpl::GithubInfoImpl(const std::shared_ptr<Requester> &requester,
     : requester_{requester} {
   requester_->init("https://api.github.com");
 
-  std::cout << "GithubInfoImpl: Requester references count: "
-            << requester.use_count() << std::endl;
-
-  headers_["Accept"] = "application/vnd.github+json";
+  headers_["Accept"] = "application/vnd.github.v3+json";
   headers_["Authorization"] = "Bearer " + token;
   headers_["X-GitHub-Api-Version"] = "2022-11-28";
 }

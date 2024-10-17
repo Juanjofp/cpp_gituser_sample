@@ -15,6 +15,7 @@ target_include_directories(
 
 find_package(OpenSSL REQUIRED)
 find_package(httplib REQUIRED)
+find_package(jsoncpp REQUIRED)
 
 target_link_libraries(
   github_info
@@ -22,8 +23,8 @@ target_link_libraries(
   OpenSSL::SSL
   OpenSSL::Crypto
   httplib::httplib
+  JsonCpp::JsonCpp
 )
 
 add_definitions(-DCPPHTTPLIB_OPENSSL_SUPPORT)
-
 add_subdirectory(tests)

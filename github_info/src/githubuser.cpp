@@ -1,10 +1,22 @@
 #include "githubuser.h"
 
+#include <json/json.h>
+
 namespace jjfp::github_info {
-std::optional<GithubUser> GithubUser::from_json(const std::string&) {
-  return GithubUser{"Juanjofp", 446496,
-                    "https://avatars.githubusercontent.com/u/446496?v=4",
-                    "https://api.github.com/users/Juanjofp"};
+std::optional<GithubUser> GithubUser::from_json(const std::string& jsonString) {
+  Json::Reader reader;
+
+  Json::Value userMap;
+
+  reader.parse(jsonString, userMap);
+
+  if (userMap.empty()) {
+    return std::nullopt;
+  }
+
+  return GithubUser{userMap["login"].asString(), userMap["id"].asInt(),
+                    userMap["avatar_url"].asString(),
+                    userMap["url"].asString()};
 }
 
 GithubUser::GithubUser(std::string login, int id, std::string avatar_url,

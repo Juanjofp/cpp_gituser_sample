@@ -2,6 +2,7 @@
 gtest/1.15.0
 cpp-httplib/0.18.0
 openssl/3.3.2
+jsoncpp/1.9.6
 
 [generators]
 CMakeDeps
