@@ -28,4 +28,8 @@ std::optional<GithubUser> GithubInfoImpl::user() const {
   return std::nullopt;
 }
 
+std::optional<std::string> GithubInfoImpl::repositories() {
+  return std::optional<std::string>{};
+}
+
 }  // namespace jjfp::github_info

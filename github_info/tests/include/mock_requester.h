@@ -20,12 +20,12 @@ class MockRequester : public Requester {
   virtual std::optional<std::string> post(const std::string& url,
                                           const std::string& data) override;
 
-  void fail_response(bool fail);
-
- private:
   static std::string get_response(std::string url);
 
-  bool return_failed_{false};
+  void set_response(std::string response);
+
+ private:
+  std::string response_ = "";
 };
 
 }  // namespace jjfp::github_info::tests

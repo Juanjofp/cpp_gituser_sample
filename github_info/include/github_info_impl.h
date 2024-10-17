@@ -16,6 +16,7 @@ class GithubInfoImpl : public GithubInfo {
   ~GithubInfoImpl();
 
   std::optional<GithubUser> user() const override;
+  std::optional<std::string> repositories() override;
 
   std::string print_version() override;
 

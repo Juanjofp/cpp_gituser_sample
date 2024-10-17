@@ -29,20 +29,6 @@ TEST_F(GithubTests, PrintVersionNotEqual) {
   ASSERT_THAT(github_info.print_version(), Ne("v0.1.1"));
 }
 
-TEST_F(GithubTests, GetInformationAboutUserFails) {
-  mock_requester->fail_response(true);
-
-  ASSERT_THAT(github_info.user().has_value(), false);
-}
-
-TEST_F(GithubTests, GetInformationAboutUser) {
-  GithubUser me{"Juanjofp", 446496,
-                "https://avatars.githubusercontent.com/u/446496?v=4",
-                "https://api.github.com/users/Juanjofp"};
-
-  ASSERT_THAT(github_info.user().value(), Eq(me));
-}
-
 TEST_F(GithubTests, CompareSameUsersEqual) {
   GithubUser me{"Juanjofp", 446496,
                 "https://avatars.githubusercontent.com/u/446496?v=4",
@@ -65,4 +51,22 @@ TEST_F(GithubTests, CompareDifferentUsersNotEqual) {
                    "https://api.github.com/users/Juanjofp"};
 
   ASSERT_THAT(me, Ne(other));
+}
+
+TEST_F(GithubTests, GetInformationAboutUserFails) {
+  ASSERT_THAT(github_info.user().has_value(), false);
+}
+
+TEST_F(GithubTests, GetInformationAboutUser) {
+  mock_requester->set_response(mock_requester->get_response("user"));
+
+  GithubUser me{"Juanjofp", 446496,
+                "https://avatars.githubusercontent.com/u/446496?v=4",
+                "https://api.github.com/users/Juanjofp"};
+
+  ASSERT_THAT(github_info.user().value(), Eq(me));
+}
+
+TEST_F(GithubTests, GetInformationAboutUserRepositoriesFails) {
+  ASSERT_THAT(github_info.repositories().has_value(), false);
 }
