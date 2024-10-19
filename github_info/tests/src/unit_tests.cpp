@@ -1,6 +1,7 @@
 #include <gmock/gmock.h>
 
 #include "github_info_impl.h"
+#include "githubrepository.h"
 #include "githubuser.h"
 #include "mock_requester.h"
 
@@ -30,25 +31,25 @@ TEST_F(GithubTests, PrintVersionNotEqual) {
 }
 
 TEST_F(GithubTests, CompareSameUsersEqual) {
-  GithubUser me{"Juanjofp", 446496,
+  GitUser me{446496, "Juanjofp", "Juanjofp",
+             "https://avatars.githubusercontent.com/u/446496?v=4",
+             "https://api.github.com/users/Juanjofp"};
+
+  GitUser other{446496, "Juanjofp", "Juanjofp",
                 "https://avatars.githubusercontent.com/u/446496?v=4",
                 "https://api.github.com/users/Juanjofp"};
-
-  GithubUser other{"Juanjofp", 446496,
-                   "https://avatars.githubusercontent.com/u/446496?v=4",
-                   "https://api.github.com/users/Juanjofp"};
 
   ASSERT_THAT(me, Eq(other));
 }
 
 TEST_F(GithubTests, CompareDifferentUsersNotEqual) {
-  GithubUser me{"Juanjofp", 446496,
+  GitUser me{446496, "Juanjofp", "Juanjofp",
+             "https://avatars.githubusercontent.com/u/446496?v=4",
+             "https://api.github.com/users/Juanjofp"};
+
+  GitUser other{99999, "Juanjofp2", "Juanjofp2",
                 "https://avatars.githubusercontent.com/u/446496?v=4",
                 "https://api.github.com/users/Juanjofp"};
-
-  GithubUser other{"Juanjofp2", 99999,
-                   "https://avatars.githubusercontent.com/u/446496?v=4",
-                   "https://api.github.com/users/Juanjofp"};
 
   ASSERT_THAT(me, Ne(other));
 }
@@ -60,13 +61,21 @@ TEST_F(GithubTests, GetInformationAboutUserFails) {
 TEST_F(GithubTests, GetInformationAboutUser) {
   mock_requester->set_response(mock_requester->get_response("user"));
 
-  GithubUser me{"Juanjofp", 446496,
-                "https://avatars.githubusercontent.com/u/446496?v=4",
-                "https://api.github.com/users/Juanjofp"};
+  GitUser me{446496, "Juanjofp", "Juanjofp",
+             "https://avatars.githubusercontent.com/u/446496?v=4",
+             "https://api.github.com/users/Juanjofp"};
 
   ASSERT_THAT(github_info.user().value(), Eq(me));
 }
 
 TEST_F(GithubTests, GetInformationAboutUserRepositoriesFails) {
   ASSERT_THAT(github_info.repositories().has_value(), false);
+}
+
+TEST_F(GithubTests, GetInformationAboutUserRepositoriesOk) {
+  mock_requester->set_response(mock_requester->get_response("repositories"));
+
+  GitRepository repo{};
+
+  ASSERT_THAT(github_info.repositories().value(), Eq(repo));
 }

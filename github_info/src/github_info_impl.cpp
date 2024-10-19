@@ -20,16 +20,16 @@ GithubInfoImpl::~GithubInfoImpl() {
   std::cout << "Destroying GithubInfoImpl" << std::endl;
 }
 
-std::optional<GithubUser> GithubInfoImpl::user() const {
+std::optional<GitUser> GithubInfoImpl::user() const {
   if (auto res = requester_->get("/user", headers_); res.has_value()) {
-    return GithubUser::from_json(res.value());
+    return GitUser::from_json(res.value());
   }
 
   return std::nullopt;
 }
 
-std::optional<std::string> GithubInfoImpl::repositories() {
-  return std::optional<std::string>{};
+std::optional<GitRepository> GithubInfoImpl::repositories() {
+  return GitRepository{};
 }
 
 }  // namespace jjfp::github_info

@@ -5,20 +5,21 @@
 
 namespace jjfp::github_info {
 
-class GithubUser {
+class GitUser {
  public:
-  static std::optional<GithubUser> from_json(const std::string& json);
+  static std::optional<GitUser> from_json(const std::string& json);
 
-  GithubUser(std::string login, int id, std::string avatar_url,
-             std::string url);
+  GitUser(int id, std::string login, std::string name, std::string avatar_url,
+          std::string url);
 
-  bool operator==(const GithubUser& other) const;
+  bool operator==(const GitUser& other) const;
 
   std::string to_string() const;
 
  private:
-  std::string login;
   int id;
+  std::string login;
+  std::string name;
   std::string avatar_url;
   std::string url;
 };
