@@ -2,8 +2,9 @@ message("Building Github info project...")
 
 cmake_minimum_required(VERSION 3.29)
 
-set(CMAKE_TOOLCHAIN_FILE "${CMAKE_BINARY_DIR}/conan_toolchain.cmake")
 project(github_info_project VERSION 1.0 LANGUAGES CXX)
+
+set(CMAKE_TOOLCHAIN_FILE "${CMAKE_BINARY_DIR}/conan_toolchain.cmake")
 
 enable_testing()
 
