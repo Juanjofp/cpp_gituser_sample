@@ -9,14 +9,15 @@
 
 namespace jjfp::github_info {
 
-class GithubInfo {
+class GithubInfo : public IGithubInfo {
  public:
   GithubInfo(std::string token);
+  virtual ~GithubInfo() = default;
 
-  std::optional<GitUser> user() const;
-  std::optional<GitRepository> repositories();
+  std::optional<GitUser> user() const override;
+  std::optional<GitRepository> repositories() const override;
 
-  std::string print_version();
+  std::string print_version() const override;
 
  private:
   std::unique_ptr<GithubInfoImpl> github_info_;

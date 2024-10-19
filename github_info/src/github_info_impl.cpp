@@ -4,7 +4,9 @@
 
 namespace jjfp::github_info {
 
-std::string GithubInfoImpl::print_version() { return std::string{"v0.1.0"}; }
+std::string GithubInfoImpl::print_version() const {
+  return std::string{"v0.1.0"};
+}
 
 GithubInfoImpl::GithubInfoImpl(const std::shared_ptr<Requester> &requester,
                                std::string token)
@@ -28,7 +30,7 @@ std::optional<GitUser> GithubInfoImpl::user() const {
   return std::nullopt;
 }
 
-std::optional<GitRepository> GithubInfoImpl::repositories() {
+std::optional<GitRepository> GithubInfoImpl::repositories() const {
   return GitRepository{};
 }
 

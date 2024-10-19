@@ -10,8 +10,12 @@ GithubInfo::GithubInfo(std::string token)
 
 std::optional<GitUser> GithubInfo::user() const { return github_info_->user(); }
 
-std::optional<GitRepository> GithubInfo::repositories() {
+std::optional<GitRepository> GithubInfo::repositories() const {
   return github_info_->repositories();
+}
+
+std::string GithubInfo::print_version() const {
+  return github_info_->print_version();
 }
 
 }  // namespace jjfp::github_info

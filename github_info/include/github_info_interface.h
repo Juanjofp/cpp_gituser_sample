@@ -10,10 +10,12 @@ namespace jjfp::github_info {
 
 class IGithubInfo {
  public:
-  virtual std::optional<GitUser> user() const = 0;
-  virtual std::optional<GitRepository> repositories() = 0;
+  virtual ~IGithubInfo() = default;
 
-  virtual std::string print_version() = 0;
+  virtual std::optional<GitUser> user() const = 0;
+  virtual std::optional<GitRepository> repositories() const = 0;
+
+  virtual std::string print_version() const = 0;
 };
 
 }  // namespace jjfp::github_info

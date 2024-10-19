@@ -1,8 +1,9 @@
 #pragma once
 
-#include <github_info.h>
-
+#include <memory>
 #include <string>
+
+#include "github_info_interface.h"
 
 namespace jjfp::githubapp {
 
@@ -16,6 +17,6 @@ class GithubApp {
   void show_user_info() const;
 
  private:
-  GithubInfo github_info_;
+  std::unique_ptr<IGithubInfo> github_info_;
 };
 }  // namespace jjfp::githubapp

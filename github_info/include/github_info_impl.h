@@ -16,9 +16,9 @@ class GithubInfoImpl : public IGithubInfo {
   virtual ~GithubInfoImpl();
 
   std::optional<GitUser> user() const override;
-  std::optional<GitRepository> repositories() override;
+  std::optional<GitRepository> repositories() const override;
 
-  std::string print_version() override;
+  std::string print_version() const override;
 
  private:
   const std::shared_ptr<Requester> requester_;
