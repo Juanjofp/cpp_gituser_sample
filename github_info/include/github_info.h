@@ -3,6 +3,7 @@
 #include <optional>
 #include <string>
 
+#include "github_info_impl.h"
 #include "githubrepository.h"
 #include "githubuser.h"
 
@@ -10,10 +11,15 @@ namespace jjfp::github_info {
 
 class GithubInfo {
  public:
-  virtual std::optional<GitUser> user() const = 0;
-  virtual std::optional<GitRepository> repositories() = 0;
+  GithubInfo(std::string token);
 
-  virtual std::string print_version() = 0;
+  std::optional<GitUser> user() const;
+  std::optional<GitRepository> repositories();
+
+  std::string print_version();
+
+ private:
+  std::unique_ptr<GithubInfoImpl> github_info_;
 };
 
 }  // namespace jjfp::github_info

@@ -4,16 +4,16 @@
 #include <optional>
 #include <string>
 
-#include "github_info.h"
+#include "github_info_interface.h"
 #include "requester.h"
 
 namespace jjfp::github_info {
 
-class GithubInfoImpl : public GithubInfo {
+class GithubInfoImpl : public IGithubInfo {
  public:
   GithubInfoImpl(const std::shared_ptr<Requester>& requester,
                  std::string token);
-  ~GithubInfoImpl();
+  virtual ~GithubInfoImpl();
 
   std::optional<GitUser> user() const override;
   std::optional<GitRepository> repositories() override;
@@ -21,7 +21,7 @@ class GithubInfoImpl : public GithubInfo {
   std::string print_version() override;
 
  private:
-  std::shared_ptr<Requester> requester_;
+  const std::shared_ptr<Requester> requester_;
 
   std::unordered_map<std::string, std::string> headers_;
 };

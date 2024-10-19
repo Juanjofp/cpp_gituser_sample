@@ -3,8 +3,7 @@
 #include <iostream>
 
 namespace jjfp::githubapp {
-GithubApp::GithubApp(const GithubInfo& github_info)
-    : github_info_{github_info} {
+GithubApp::GithubApp(const std::string& token) : github_info_{token} {
   std::cout << "Creating GithubApp" << std::endl;
 }
 

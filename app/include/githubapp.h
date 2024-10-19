@@ -10,12 +10,12 @@ using namespace jjfp::github_info;
 
 class GithubApp {
  public:
-  GithubApp(const GithubInfo& github_info);
+  GithubApp(const std::string& token);
   ~GithubApp();
 
   void show_user_info() const;
 
  private:
-  const GithubInfo& github_info_;
+  GithubInfo github_info_;
 };
 }  // namespace jjfp::githubapp
