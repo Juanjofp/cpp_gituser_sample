@@ -1,5 +1,6 @@
 #include "github_info.h"
 
+#include "github_info_impl.h"
 #include "httplib_requester.h"
 
 namespace jjfp::github_info {

@@ -4,6 +4,7 @@
         "conan": {}
     },
     "include": [
-        "/Users/juanjo/Projects/cpp/gituser/build/CMakePresets.json"
+        "/Users/juanjo/Projects/cpp/gituser/build/CMakePresets.json",
+        "build/CMakePresets.json"
     ]
 }

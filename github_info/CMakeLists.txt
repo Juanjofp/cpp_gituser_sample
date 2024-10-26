@@ -21,7 +21,7 @@ find_package(jsoncpp REQUIRED)
 
 target_link_libraries(
   github_info
-  PUBLIC
+  PRIVATE
   OpenSSL::SSL
   OpenSSL::Crypto
   httplib::httplib

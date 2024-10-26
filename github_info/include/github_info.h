@@ -1,9 +1,10 @@
 #pragma once
 
+#include <memory>
 #include <optional>
 #include <string>
 
-#include "github_info_impl.h"
+#include "github_info_interface.h"
 #include "githubrepository.h"
 #include "githubuser.h"
 
@@ -20,7 +21,7 @@ class GithubInfo : public IGithubInfo {
   std::string print_version() const override;
 
  private:
-  std::unique_ptr<GithubInfoImpl> github_info_;
+  std::unique_ptr<IGithubInfo> github_info_;
 };
 
 }  // namespace jjfp::github_info
