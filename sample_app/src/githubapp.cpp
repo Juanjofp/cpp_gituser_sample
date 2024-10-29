@@ -13,10 +13,16 @@ GithubApp::GithubApp(const std::string& token)
 GithubApp::~GithubApp() { std::cout << "Destroying GithubApp" << std::endl; }
 
 void GithubApp::show_user_info() const {
-  if (auto user = github_info_->user(); user.has_value()) {
+  if (auto user = github_info_->me(); user.has_value()) {
+    std::cout << "Me: " << user.value().to_string() << std::endl;
+  } else {
+    std::cout << "Failed to get my info" << std::endl;
+  }
+
+  if (auto user = github_info_->user("octokit"); user.has_value()) {
     std::cout << "User: " << user.value().to_string() << std::endl;
   } else {
-    std::cout << "Failed to get user info" << std::endl;
+    std::cout << "Failed to get user octokit info" << std::endl;
   }
 }
 

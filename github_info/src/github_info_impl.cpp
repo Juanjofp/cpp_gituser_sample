@@ -22,7 +22,7 @@ GithubInfoImpl::~GithubInfoImpl() {
   std::cout << "Destroying GithubInfoImpl" << std::endl;
 }
 
-std::optional<GitUser> GithubInfoImpl::user() const {
+std::optional<GitUser> GithubInfoImpl::me() const {
   if (auto res = requester_->get("/user", headers_); res.has_value()) {
     return GitUser::from_json(res.value());
   }
@@ -30,7 +30,17 @@ std::optional<GitUser> GithubInfoImpl::user() const {
   return std::nullopt;
 }
 
-std::optional<GitRepository> GithubInfoImpl::repositories() const {
+std::optional<GitUser> GithubInfoImpl::user(const std::string &username) const {
+  if (auto res = requester_->get(std::format("/users/{}", username), headers_);
+      res.has_value()) {
+    return GitUser::from_json(res.value());
+  }
+
+  return std::nullopt;
+}
+
+std::optional<GitRepository> GithubInfoImpl::repositories(
+    const std::string &) const {
   return GitRepository{};
 }
 

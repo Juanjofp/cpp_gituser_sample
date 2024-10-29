@@ -25,8 +25,11 @@ std::optional<std::string> MockRequester::post(const std::string& url,
 }
 
 std::string MockRequester::get_response(std::string url) {
-  std::string user =
+  std::string me =
       R"({"login":"Juanjofp","id":446496,"node_id":"MDQ6VXNlcjQ0NjQ5Ng==","avatar_url":"https://avatars.githubusercontent.com/u/446496?v=4","gravatar_id":"","url":"https://api.github.com/users/Juanjofp","html_url":"https://github.com/Juanjofp","followers_url":"https://api.github.com/users/Juanjofp/followers","following_url":"https://api.github.com/users/Juanjofp/following{/other_user}","gists_url":"https://api.github.com/users/Juanjofp/gists{/gist_id}","starred_url":"https://api.github.com/users/Juanjofp/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/Juanjofp/subscriptions","organizations_url":"https://api.github.com/users/Juanjofp/orgs","repos_url":"https://api.github.com/users/Juanjofp/repos","events_url":"https://api.github.com/users/Juanjofp/events{/privacy}","received_events_url":"https://api.github.com/users/Juanjofp/received_events","type":"User","site_admin":false,"name":"Juanjo","company":"Digio","blog":"http://juanjofp.com","location":"Murcia, Spain","email":"juanjo@juanjofp.com","hireable":null,"bio":null,"twitter_username":null,"notification_email":"juanjo@juanjofp.com","public_repos":59,"public_gists":5,"followers":35,"following":73,"created_at":"2010-10-20T07:04:01Z","updated_at":"2024-09-07T10:33:10Z"})";
+
+  std::string octokit =
+      R"({"login":"octokit","id":3430433,"node_id":"MDEyOk9yZ2FuaXphdGlvbjM0MzA0MzM=","avatar_url":"https://avatars.githubusercontent.com/u/3430433?v=4","gravatar_id":"","url":"https://api.github.com/users/octokit","html_url":"https://github.com/octokit","followers_url":"https://api.github.com/users/octokit/followers","following_url":"https://api.github.com/users/octokit/following{/other_user}","gists_url":"https://api.github.com/users/octokit/gists{/gist_id}","starred_url":"https://api.github.com/users/octokit/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/octokit/subscriptions","organizations_url":"https://api.github.com/users/octokit/orgs","repos_url":"https://api.github.com/users/octokit/repos","events_url":"https://api.github.com/users/octokit/events{/privacy}","received_events_url":"https://api.github.com/users/octokit/received_events","type":"Organization","user_view_type":"public","site_admin":false,"name":"Octokit","company":null,"blog":"http://octokit.github.io","location":null,"email":null,"hireable":null,"bio":"Official clients for the GitHub API","twitter_username":"octokit","public_repos":71,"public_gists":0,"followers":792,"following":0,"created_at":"2013-01-30T18:13:42Z","updated_at":"2023-09-11T20:37:55Z"})";
 
   std::string repositories = R"(
 [
@@ -151,7 +154,7 @@ std::string MockRequester::get_response(std::string url) {
 ])";
 
   std::unordered_map<std::string, std::string> responses{
-      {"user", user}, {"repositories", repositories}};
+      {"me", me}, {"octokit", octokit}, {"repositories", repositories}};
 
   return responses[url];
 }

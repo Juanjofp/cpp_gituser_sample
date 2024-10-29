@@ -54,22 +54,36 @@ TEST_F(GithubTests, CompareDifferentUsersNotEqual) {
   ASSERT_THAT(me, Ne(other));
 }
 
-TEST_F(GithubTests, GetInformationAboutUserFails) {
-  ASSERT_THAT(github_info.user().has_value(), false);
+TEST_F(GithubTests, GetInformationAboutMeFails) {
+  ASSERT_THAT(github_info.me().has_value(), false);
 }
 
-TEST_F(GithubTests, GetInformationAboutUser) {
-  mock_requester->set_response(mock_requester->get_response("user"));
+TEST_F(GithubTests, GetInformationAboutMe) {
+  mock_requester->set_response(mock_requester->get_response("me"));
 
   GitUser me{446496, "Juanjofp", "Juanjofp",
              "https://avatars.githubusercontent.com/u/446496?v=4",
              "https://api.github.com/users/Juanjofp"};
 
-  ASSERT_THAT(github_info.user().value(), Eq(me));
+  ASSERT_THAT(github_info.me().value(), Eq(me));
+}
+
+TEST_F(GithubTests, GetInformationAboutUserFails) {
+  ASSERT_THAT(github_info.user("juanjofp").has_value(), false);
+}
+
+TEST_F(GithubTests, GetInformationAboutUser) {
+  mock_requester->set_response(mock_requester->get_response("octokit"));
+
+  GitUser an_user{3430433, "octokit", "octokit",
+                  "https://avatars.githubusercontent.com/u/3430433?v=4",
+                  "https://api.github.com/users/octokit"};
+
+  ASSERT_THAT(github_info.user("octokit").value(), Eq(an_user));
 }
 
 TEST_F(GithubTests, GetInformationAboutUserRepositoriesFails) {
-  ASSERT_THAT(github_info.repositories().has_value(), false);
+  ASSERT_THAT(github_info.repositories("juanjofp").has_value(), false);
 }
 
 TEST_F(GithubTests, GetInformationAboutUserRepositoriesOk) {
@@ -77,5 +91,5 @@ TEST_F(GithubTests, GetInformationAboutUserRepositoriesOk) {
 
   GitRepository repo{};
 
-  ASSERT_THAT(github_info.repositories().value(), Eq(repo));
+  ASSERT_THAT(github_info.repositories("juanjofp").value(), Eq(repo));
 }

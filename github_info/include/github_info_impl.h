@@ -15,8 +15,10 @@ class GithubInfoImpl : public IGithubInfo {
                  std::string token);
   virtual ~GithubInfoImpl();
 
-  std::optional<GitUser> user() const override;
-  std::optional<GitRepository> repositories() const override;
+  std::optional<GitUser> me() const override;
+  std::optional<GitUser> user(const std::string& username) const override;
+  std::optional<GitRepository> repositories(
+      const std::string& username) const override;
 
   std::string print_version() const override;
 

@@ -9,10 +9,15 @@ GithubInfo::GithubInfo(std::string token)
     : github_info_{std::make_unique<GithubInfoImpl>(
           std::make_shared<HttpLibRequester>(), token)} {}
 
-std::optional<GitUser> GithubInfo::user() const { return github_info_->user(); }
+std::optional<GitUser> GithubInfo::me() const { return github_info_->me(); }
 
-std::optional<GitRepository> GithubInfo::repositories() const {
-  return github_info_->repositories();
+std::optional<GitUser> GithubInfo::user(const std::string& username) const {
+  return github_info_->user(username);
+}
+
+std::optional<GitRepository> GithubInfo::repositories(
+    const std::string& username) const {
+  return github_info_->repositories(username);
 }
 
 std::string GithubInfo::print_version() const {
