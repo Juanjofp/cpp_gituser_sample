@@ -60,10 +60,7 @@ TEST_F(GithubTests, GetInformationAboutMeFails) {
 
 TEST_F(GithubTests, GetInformationAboutMe) {
   mock_requester->set_response(mock_requester->get_response("me"));
-
-  GitUser me{446496, "Juanjofp", "Juanjofp",
-             "https://avatars.githubusercontent.com/u/446496?v=4",
-             "https://api.github.com/users/Juanjofp"};
+  auto me = GitUser::from_json(mock_requester->get_response("me"));
 
   ASSERT_THAT(github_info.me().value(), Eq(me));
 }
@@ -74,10 +71,7 @@ TEST_F(GithubTests, GetInformationAboutUserFails) {
 
 TEST_F(GithubTests, GetInformationAboutUser) {
   mock_requester->set_response(mock_requester->get_response("octokit"));
-
-  GitUser an_user{3430433, "octokit", "octokit",
-                  "https://avatars.githubusercontent.com/u/3430433?v=4",
-                  "https://api.github.com/users/octokit"};
+  auto an_user = GitUser::from_json(mock_requester->get_response("octokit"));
 
   ASSERT_THAT(github_info.user("octokit").value(), Eq(an_user));
 }
@@ -91,5 +85,5 @@ TEST_F(GithubTests, GetInformationAboutUserRepositoriesOk) {
 
   GitRepository repo{};
 
-  ASSERT_THAT(github_info.repositories("juanjofp").value(), Eq(repo));
+  ASSERT_THAT(github_info.repositories("octokit").value(), Eq(repo));
 }
