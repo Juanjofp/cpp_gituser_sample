@@ -1,8 +1,8 @@
 rm -rf build
 
-conan install . -s build_type=Debug -s compiler.cppstd=23 --output-folder=build --build missing
+conan install . -s build_type=Release -s compiler.cppstd=23 --output-folder=build --build missing
 
-cmake --preset conan-debug
+cmake --preset conan-release
 
 cmake --build build
 

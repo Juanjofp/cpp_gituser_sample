@@ -2,6 +2,7 @@ message(STATUS "Github info library")
 
 add_library(
   github_info
+  STATIC
   src/github_info_impl.cpp
   src/httplib_requester.cpp
   src/githubuser.cpp
@@ -19,9 +20,11 @@ find_package(OpenSSL REQUIRED)
 find_package(httplib REQUIRED)
 find_package(jsoncpp REQUIRED)
 
+message(STATUS "??? Linking libraries...")
+
 target_link_libraries(
   github_info
-  PRIVATE
+  PUBLIC
   OpenSSL::SSL
   OpenSSL::Crypto
   httplib::httplib

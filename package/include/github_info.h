@@ -4,7 +4,6 @@
 #include <optional>
 #include <string>
 
-// #include "github_info_impl.h"
 #include "github_info_interface.h"
 #include "githubrepository.h"
 #include "githubuser.h"
