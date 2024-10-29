@@ -6,18 +6,29 @@ class GithubInfoConan(ConanFile):
     name = "github_info"
     version = "1.0.1"
 
+    # Declaramos las dependencias aquí
+    requires = [
+        "gtest/1.15.0",
+        "cpp-httplib/0.18.0",
+        "openssl/3.3.2",
+        "jsoncpp/1.9.6"
+    ]
+
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
-    default_options = {"shared": False}
+    default_options = {
+        "shared": False,
+        "openssl/*:shared": False,
+        "jsoncpp/*:shared": False,
+        "cpp-httplib/*:shared": False
+    }
 
-    # Especifica qué archivos deben exportarse al directorio de construcción
     exports_sources = "include/*", "lib/*"
 
     def layout(self):
         basic_layout(self)
 
     def package(self):
-        # Copiar archivos directamente desde la carpeta raíz del proyecto
         copy(self, "*.h", src=f"{self.source_folder}/include", dst=f"{self.package_folder}/include", keep_path=True)
         copy(self, "*.a", src=f"{self.source_folder}/lib", dst=f"{self.package_folder}/lib", keep_path=False)
 
