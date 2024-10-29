@@ -1,4 +1,4 @@
-#include "githubuser.h"
+#include "github_user.h"
 
 #include <json/json.h>
 

@@ -1,6 +1,6 @@
-#include "githubrepository.h"
+#include "github_repository.h"
 
-#include "githubuser.h"
+#include "github_user.h"
 
 namespace jjfp::github_info {
 

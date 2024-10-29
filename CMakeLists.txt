@@ -15,7 +15,7 @@ add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 
 add_subdirectory(github_info)
 
-add_subdirectory(app)
+add_subdirectory(sample_app)
 
 # find_package(GTest CONFIG REQUIRED)
 # add_subdirectory(soundex)

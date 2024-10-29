@@ -3,8 +3,8 @@
 #include <optional>
 #include <string>
 
-#include "githubrepository.h"
-#include "githubuser.h"
+#include "github_repository.h"
+#include "github_user.h"
 
 namespace jjfp::github_info {
 

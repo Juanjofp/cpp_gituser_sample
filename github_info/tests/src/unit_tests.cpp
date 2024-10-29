@@ -1,8 +1,8 @@
 #include <gmock/gmock.h>
 
 #include "github_info_impl.h"
-#include "githubrepository.h"
-#include "githubuser.h"
+#include "github_repository.h"
+#include "github_user.h"
 #include "mock_requester.h"
 
 using namespace testing;

@@ -5,8 +5,8 @@ add_library(
   STATIC
   src/github_info_impl.cpp
   src/httplib_requester.cpp
-  src/githubuser.cpp
-  src/githubrepository.cpp
+  src/github_user.cpp
+  src/github_repository.cpp
   src/github_info.cpp
 )
 
@@ -19,8 +19,6 @@ target_include_directories(
 find_package(OpenSSL REQUIRED)
 find_package(httplib REQUIRED)
 find_package(jsoncpp REQUIRED)
-
-message(STATUS "??? Linking libraries...")
 
 target_link_libraries(
   github_info
