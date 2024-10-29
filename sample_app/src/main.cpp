@@ -8,8 +8,7 @@ int main() {
   std::cout << "Sample app for GithubInfo lib!" << std::endl;
 
   std::string test_token{
-      "github_pat_11AADNAIA0QGIRUBk4D49H_"
-      "ZlkXNNFFq2yaKdh4j74OqkxrPSN8dTCg2xHWFrikQQmSWAFZEXGmH4kNbZt"};
+      "fake_token"};  // This token is not valid, replace it with a valid one
 
   auto app = GithubApp{test_token};
 
