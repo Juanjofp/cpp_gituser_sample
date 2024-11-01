@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <optional>
 #include <string>
 
 #include "github_info_interface.h"
@@ -15,14 +14,20 @@ class GithubInfoImpl : public IGithubInfo {
                  std::string token);
   virtual ~GithubInfoImpl();
 
-  std::optional<GitUser> me() const override;
-  std::optional<GitUser> user(const std::string& username) const override;
-  std::optional<GitRepository> repositories(
+  std::expected<GitUser, GitError> me() const override;
+
+  std::expected<GitUser, GitError> user(
+      const std::string& username) const override;
+
+  std::expected<GitRepository, GitError> repositories(
       const std::string& username) const override;
 
   std::string print_version() const override;
 
  private:
+  std::expected<GitUser, GitError> user_from_response(
+      const RequesterResponse& res) const;
+
   const std::shared_ptr<Requester> requester_;
 
   std::unordered_map<std::string, std::string> headers_;

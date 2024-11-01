@@ -4,24 +4,31 @@
 #include <unordered_map>
 
 namespace jjfp::github_info::tests {
+MockRequester::MockRequester() : response_{std::nullopt} {
+  std::cout << "?????? Constructing MockRequester " << std::endl;
+}
+
 MockRequester::~MockRequester() {
   std::cout << "?????? Destroying MockRequester" << std::endl;
 }
 
 void MockRequester::init(std::string) {}
 
-std::optional<std::string> MockRequester::get(
+RequesterResponse MockRequester::get(
     const std::string&, const std::unordered_map<std::string, std::string>) {
-  if (response_.empty()) {
-    return std::nullopt;
+  if (response_) {
+    return *response_;
   }
 
-  return response_;
+  return RequesterResponse{0, std::nullopt};
 }
 
-std::optional<std::string> MockRequester::post(const std::string& url,
-                                               const std::string& data) {
-  return std::optional<std::string>{url + data};
+RequesterResponse MockRequester::post(const std::string&, const std::string&) {
+  if (response_) {
+    return *response_;
+  }
+
+  return RequesterResponse{0, std::nullopt};
 }
 
 std::string MockRequester::get_response(std::string url) {
@@ -159,6 +166,8 @@ std::string MockRequester::get_response(std::string url) {
   return responses[url];
 }
 
-void MockRequester::set_response(std::string response) { response_ = response; }
+void MockRequester::set_response(const RequesterResponse& response) {
+  response_ = response;
+}
 
 }  // namespace jjfp::github_info::tests

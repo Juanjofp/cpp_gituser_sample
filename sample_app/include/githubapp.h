@@ -14,7 +14,9 @@ class GithubApp {
   GithubApp(const std::string& token);
   ~GithubApp();
 
-  void show_user_info() const;
+  void show_me_info() const;
+  void show_user_info(const std::string& username) const;
+  void show_user_repositories(const std::string& username) const;
 
  private:
   std::unique_ptr<IGithubInfo> github_info_;

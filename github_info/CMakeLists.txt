@@ -8,6 +8,7 @@ add_library(
   src/github_user.cpp
   src/github_repository.cpp
   src/github_info.cpp
+  src/github_error.cpp
 )
 
 target_include_directories(

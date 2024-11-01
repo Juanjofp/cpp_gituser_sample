@@ -3,8 +3,9 @@
 #include <string>
 #include <unordered_map>
 
-namespace jjfp::github_info {
+#include "requester_response.h"
 
+namespace jjfp::github_info {
 class Requester {
  public:
   Requester() = default;
@@ -12,12 +13,12 @@ class Requester {
 
   virtual void init(std::string host) = 0;
 
-  virtual std::optional<std::string> get(
+  virtual RequesterResponse get(
       const std::string& url,
       const std::unordered_map<std::string, std::string>) = 0;
 
-  virtual std::optional<std::string> post(const std::string& url,
-                                          const std::string& data) = 0;
+  virtual RequesterResponse post(const std::string& url,
+                                 const std::string& data) = 0;
 };
 
 }  // namespace jjfp::github_info

@@ -18,8 +18,10 @@ cp ./github_info/include/github_info.h package/include/github_info.h
 
 cp ./github_info/include/github_info_interface.h package/include/github_info_interface.h
 
-cp ./github_info/include/githubrepository.h package/include/githubrepository.h
+cp ./github_info/include/github_repository.h package/include/github_repository.h
 
-cp ./github_info/include/githubuser.h package/include/githubuser.h
+cp ./github_info/include/github_user.h package/include/github_user.h
+
+cp ./github_info/include/github_user.h package/include/github_error.h
 
 conan create ./package --user juanjofp --channel develop --build missing

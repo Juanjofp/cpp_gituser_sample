@@ -1,8 +1,9 @@
 #pragma once
 
-#include <optional>
+#include <expected>
 #include <string>
 
+#include "github_error.h"
 #include "github_repository.h"
 #include "github_user.h"
 
@@ -12,9 +13,12 @@ class IGithubInfo {
  public:
   virtual ~IGithubInfo() = default;
 
-  virtual std::optional<GitUser> me() const = 0;
-  virtual std::optional<GitUser> user(const std::string& username) const = 0;
-  virtual std::optional<GitRepository> repositories(
+  virtual std::expected<GitUser, GitError> me() const = 0;
+
+  virtual std::expected<GitUser, GitError> user(
+      const std::string& username) const = 0;
+
+  virtual std::expected<GitRepository, GitError> repositories(
       const std::string& username) const = 0;
 
   virtual std::string print_version() const = 0;

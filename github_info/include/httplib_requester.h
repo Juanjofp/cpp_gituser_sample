@@ -15,12 +15,12 @@ class HttpLibRequester : public Requester {
 
   virtual void init(std::string host) override;
 
-  virtual std::optional<std::string> get(
+  virtual RequesterResponse get(
       const std::string& url,
       const std::unordered_map<std::string, std::string>) override;
 
-  virtual std::optional<std::string> post(const std::string& url,
-                                          const std::string& data) override;
+  virtual RequesterResponse post(const std::string& url,
+                                 const std::string& data) override;
 
  private:
   std::unique_ptr<httplib::Client> cli_;

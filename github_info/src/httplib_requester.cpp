@@ -18,11 +18,11 @@ void HttpLibRequester::init(std::string host) {
   cli_->enable_server_certificate_verification(false);
 }
 
-std::optional<std::string> HttpLibRequester::get(
+RequesterResponse HttpLibRequester::get(
     const std::string& url,
     const std::unordered_map<std::string, std::string> headers) {
   if (cli_ == nullptr) {
-    return std::nullopt;
+    return RequesterResponse{0, std::nullopt};
   }
 
   httplib::Headers httpHeader;
@@ -37,26 +37,22 @@ std::optional<std::string> HttpLibRequester::get(
   if (!res) {
     std::cout << "No response received " << res << std::endl;
 
-    return std::nullopt;
+    return RequesterResponse{0, std::nullopt};
   }
 
-  if (res->status >= 200 && res->status < 300) {
-    return std::string{res->body};
-  }
+  const auto body =
+      res->body != "" ? std::optional<std::string>{res->body} : std::nullopt;
 
-  std::cout << "Invalid response:" << res->status << " ::>" << res->body
-            << std::endl;
-
-  return std::nullopt;
+  return RequesterResponse{res->status, body};
 }
 
-std::optional<std::string> HttpLibRequester::post(const std::string& url,
-                                                  const std::string& data) {
+RequesterResponse HttpLibRequester::post(const std::string&,
+                                         const std::string&) {
   if (cli_ == nullptr) {
-    return std::nullopt;
+    return RequesterResponse{0, std::nullopt};
   }
 
-  return std::string{url + data};
+  return RequesterResponse{0, std::nullopt};
 }
 
 }  // namespace jjfp::github_info
