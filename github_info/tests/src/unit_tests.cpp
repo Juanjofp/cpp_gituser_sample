@@ -139,8 +139,12 @@ TEST_F(GithubTests, GetInformationAboutUserRepositoriesOk) {
 
   mock_requester->set_response(response);
 
-  const auto repositories =
+  const auto expected_repos =
       GitRepository::from_json(mock_requester->get_response("repositories"));
 
-  ASSERT_THAT(github_info.repositories("octokit").value(), Eq(repositories));
+  const auto repositories = github_info.repositories("octokit");
+
+  ASSERT_THAT(repositories.has_value(), Eq(true));
+
+  ASSERT_THAT(repositories.value(), Eq(expected_repos));
 }

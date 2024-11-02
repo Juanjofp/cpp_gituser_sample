@@ -1,12 +1,10 @@
 #pragma once
 
+#include <expected>
 #include <memory>
-#include <optional>
 #include <string>
 
 #include "github_info_interface.h"
-#include "github_repository.h"
-#include "github_user.h"
 
 namespace jjfp::github_info {
 
@@ -15,9 +13,12 @@ class GithubInfo : public IGithubInfo {
   GithubInfo(std::string token);
   virtual ~GithubInfo() = default;
 
-  std::optional<GitUser> me() const override;
-  std::optional<GitUser> user(const std::string& username) const override;
-  std::optional<GitRepository> repositories(
+  std::expected<GitUser, GitError> me() const override;
+
+  std::expected<GitUser, GitError> user(
+      const std::string& username) const override;
+
+  std::expected<GitRepository, GitError> repositories(
       const std::string& username) const override;
 
   std::string print_version() const override;
