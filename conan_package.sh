@@ -22,6 +22,6 @@ cp ./github_info/include/github_repository.h package/include/github_repository.h
 
 cp ./github_info/include/github_user.h package/include/github_user.h
 
-cp ./github_info/include/github_user.h package/include/github_error.h
+cp ./github_info/include/github_error.h package/include/github_error.h
 
 conan create ./package --user juanjofp --channel develop --build missing
