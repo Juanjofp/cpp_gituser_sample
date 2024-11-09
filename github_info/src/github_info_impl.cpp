@@ -8,34 +8,49 @@ std::string GithubInfoImpl::print_version() const {
   return std::string{"v0.1.0"};
 }
 
-std::expected<GitUser, GitError> GithubInfoImpl::user_from_response(
+std::optional<GitError> GithubInfoImpl::error_from_response(
     const RequesterResponse &res) const {
   const auto status = res.status_code();
 
   if (status == 404) {
-    return std::unexpected(
-        GitError{GitError::ErrorKind::ElementNotFound, "User not found"});
+    return GitError{GitError::ErrorKind::ElementNotFound, "User not found"};
   }
 
   if (status < 200 || status >= 300) {
-    return std::unexpected(
-        GitError{GitError::ErrorKind::ServerError,
-                 "Server cannot respond with a valid response"});
+    return GitError{GitError::ErrorKind::ServerError,
+                    "Server cannot respond with a valid response"};
   }
 
-  if (!res.body()) {
+  return std::nullopt;
+}
+
+std::expected<std::string, GitError> GithubInfoImpl::body_from_response(
+    const RequesterResponse &res) const {
+  const auto error = error_from_response(res);
+
+  if (error) {
+    return std::unexpected(*error);
+  }
+
+  const auto body = res.body();
+
+  if (!body) {
     return std::unexpected(
         GitError{GitError::ErrorKind::ResponseError, "No response body"});
   }
 
-  auto user = GitUser::from_json(*res.body());
+  return *body;
+}
 
-  if (!user) {
-    return std::unexpected(
-        GitError{GitError::ErrorKind::ResponseError, "Invalid response body"});
+std::expected<GitUser, GitError> GithubInfoImpl::user_from_response(
+    const RequesterResponse &res) const {
+  const auto body = body_from_response(res);
+
+  if (!body) {
+    return std::unexpected(body.error());
   }
 
-  return *user;
+  return GitUser::from_json(*body);
 }
 
 GithubInfoImpl::GithubInfoImpl(const std::shared_ptr<Requester> &requester,

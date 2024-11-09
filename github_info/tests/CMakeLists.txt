@@ -2,7 +2,8 @@ message(STATUS "Building github_info unit tests")
 
 add_executable(
   github_info_unit_tests
-  src/unit_tests.cpp
+  src/unit_tests_users.cpp
+  src/unit_tests_repos.cpp
   src/mock_requester.cpp
 )
 

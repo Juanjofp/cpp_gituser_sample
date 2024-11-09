@@ -3,7 +3,8 @@
 #include <json/json.h>
 
 namespace jjfp::github_info {
-std::optional<GitUser> GitUser::from_json(const std::string& jsonString) {
+std::expected<GitUser, GitError> GitUser::from_json(
+    const std::string& jsonString) {
   Json::Reader reader;
 
   Json::Value userMap;
@@ -11,11 +12,39 @@ std::optional<GitUser> GitUser::from_json(const std::string& jsonString) {
   reader.parse(jsonString, userMap);
 
   if (userMap.empty()) {
-    return std::nullopt;
+    return std::unexpected(
+        GitError{GitError::ErrorKind::InvalidResponse, "Invalid response"});
   }
 
-  return GitUser{userMap["id"].asInt(), userMap["login"].asString(),
-                 userMap["name"].asString(), userMap["avatar_url"].asString(),
+  if (!userMap.isMember("id")) {
+    return std::unexpected(
+        GitError{GitError::ErrorKind::MissingField, "Missing field id"});
+  }
+
+  const auto id_value = userMap["id"];
+
+  if (!id_value.isInt()) {
+    return std::unexpected(GitError{GitError::ErrorKind::MissingField,
+                                    "Missing field id as integer"});
+  }
+
+  const auto id = id_value.asInt();
+
+  if (!userMap.isMember("login")) {
+    return std::unexpected(
+        GitError{GitError::ErrorKind::MissingField, "Missing field login"});
+  }
+
+  const auto login = userMap["login"].asString();
+
+  if (!userMap.isMember("name")) {
+    return std::unexpected(
+        GitError{GitError::ErrorKind::MissingField, "Missing field name"});
+  }
+
+  const auto name = userMap["name"].asString();
+
+  return GitUser{id, login, name, userMap["avatar_url"].asString(),
                  userMap["url"].asString()};
 }
 

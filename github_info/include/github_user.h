@@ -1,13 +1,15 @@
 #pragma once
 
-#include <optional>
+#include <expected>
 #include <string>
+
+#include "github_error.h"
 
 namespace jjfp::github_info {
 
 class GitUser {
  public:
-  static std::optional<GitUser> from_json(const std::string& json);
+  static std::expected<GitUser, GitError> from_json(const std::string& json);
 
   GitUser(int id, std::string login, std::string name, std::string avatar_url,
           std::string url);

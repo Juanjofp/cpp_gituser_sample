@@ -1,27 +1,25 @@
 #pragma once
 
-#include <optional>
 #include <string>
 
 namespace jjfp::github_info {
 
-class GitUser {
+class GitError {
  public:
-  static std::optional<GitUser> from_json(const std::string& json);
+  enum class ErrorKind {
+    ServerError,
+    ResponseError,
+    ElementNotFound,
+  };
 
-  GitUser(int id, std::string login, std::string name, std::string avatar_url,
-          std::string url);
+  GitError(const ErrorKind kind, const std::string& message);
 
-  bool operator==(const GitUser& other) const;
-
-  std::string to_string() const;
+  std::string message() const;
+  ErrorKind kind() const;
 
  private:
-  int id;
-  std::string login;
-  std::string name;
-  std::string avatar_url;
-  std::string url;
+  ErrorKind kind_;
+  std::string message_;
 };
 
 }  // namespace jjfp::github_info

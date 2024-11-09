@@ -25,6 +25,12 @@ class GithubInfoImpl : public IGithubInfo {
   std::string print_version() const override;
 
  private:
+  std::optional<GitError> error_from_response(
+      const RequesterResponse& res) const;
+
+  std::expected<std::string, GitError> body_from_response(
+      const RequesterResponse& res) const;
+
   std::expected<GitUser, GitError> user_from_response(
       const RequesterResponse& res) const;
 
