@@ -20,6 +20,8 @@ cp ./github_info/include/github_info_interface.h package/include/github_info_int
 
 cp ./github_info/include/github_repository.h package/include/github_repository.h
 
+cp ./github_info/include/github_repositories.h package/include/github_repositories.h
+
 cp ./github_info/include/github_user.h package/include/github_user.h
 
 cp ./github_info/include/github_error.h package/include/github_error.h

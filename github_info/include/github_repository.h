@@ -1,12 +1,15 @@
 #pragma once
 
-#include <optional>
+#include <expected>
 #include <string>
+
+#include "github_error.h"
 
 namespace jjfp::github_info {
 class GitRepository {
  public:
-  static std::optional<GitRepository> from_json(const std::string& json);
+  static std::expected<GitRepository, GitError> from_json(
+      const std::string& json);
 
   bool operator==(const GitRepository& other) const;
 

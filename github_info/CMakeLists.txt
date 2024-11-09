@@ -7,6 +7,7 @@ add_library(
   src/httplib_requester.cpp
   src/github_user.cpp
   src/github_repository.cpp
+  src/github_repositories.cpp
   src/github_info.cpp
   src/github_error.cpp
 )
