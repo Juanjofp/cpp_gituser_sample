@@ -4,7 +4,7 @@ from conan.tools.layout import basic_layout
 
 class GithubInfoConan(ConanFile):
     name = "github_info"
-    version = "1.0.2"
+    version = "1.0.3"
 
     # Declaramos las dependencias aquí
     requires = [

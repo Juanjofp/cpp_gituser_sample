@@ -18,7 +18,7 @@ std::expected<GitUser, GitError> GithubInfo::user(
   return github_info_->user(username);
 }
 
-std::expected<GitRepository, GitError> GithubInfo::repositories(
+std::expected<GitRepositories, GitError> GithubInfo::repositories(
     const std::string& username) const {
   return github_info_->repositories(username);
 }

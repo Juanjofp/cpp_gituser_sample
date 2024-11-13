@@ -10,6 +10,8 @@ class GitError {
     ServerError,
     ResponseError,
     ElementNotFound,
+    InvalidResponse,
+    MissingField,
   };
 
   GitError(const ErrorKind kind, const std::string& message);

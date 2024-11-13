@@ -53,6 +53,17 @@ std::expected<GitUser, GitError> GithubInfoImpl::user_from_response(
   return GitUser::from_json(*body);
 }
 
+std::expected<GitRepositories, GitError> GithubInfoImpl::repos_from_response(
+    const RequesterResponse &res) const {
+  const auto body = body_from_response(res);
+
+  if (!body) {
+    return std::unexpected(body.error());
+  }
+
+  return GitRepositories::from_json(*body);
+}
+
 GithubInfoImpl::GithubInfoImpl(const std::shared_ptr<Requester> &requester,
                                std::string token)
     : requester_{requester} {
@@ -80,10 +91,12 @@ std::expected<GitUser, GitError> GithubInfoImpl::user(
   return user_from_response(res);
 }
 
-std::expected<GitRepository, GitError> GithubInfoImpl::repositories(
-    const std::string &) const {
-  return std::unexpected(GitError{GitError::ErrorKind::ElementNotFound,
-                                  "Method not implemented yet"});
+std::expected<GitRepositories, GitError> GithubInfoImpl::repositories(
+    const std::string &username) const {
+  const auto res =
+      requester_->get(std::format("/users/{}/repos", username), headers_);
+
+  return repos_from_response(res);
 }
 
 }  // namespace jjfp::github_info

@@ -26,7 +26,7 @@ void GithubApp::show_me_info() const {
     return;
   }
 
-  std::cout << "My info: " << (*user).to_string() << std::endl;
+  std::cout << "My info: " << user->to_string() << std::endl;
 }
 
 void GithubApp::show_user_info(const std::string& username) const {
@@ -43,7 +43,7 @@ void GithubApp::show_user_info(const std::string& username) const {
     return;
   }
 
-  std::cout << username << " info: " << (*user).to_string() << std::endl;
+  std::cout << username << " info: " << user->to_string() << std::endl;
 }
 
 void GithubApp::show_user_repositories(const std::string& username) const {
@@ -60,8 +60,8 @@ void GithubApp::show_user_repositories(const std::string& username) const {
     return;
   }
 
-  std::cout << username << " repositories: " << (*repositories).to_string()
-            << std::endl;
+  std::cout << username << " repositories: [" << repositories->size() << "]"
+            << repositories->to_string() << std::endl;
 }
 
 }  // namespace jjfp::githubapp

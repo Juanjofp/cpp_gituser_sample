@@ -18,7 +18,7 @@ class GithubInfo : public IGithubInfo {
   std::expected<GitUser, GitError> user(
       const std::string& username) const override;
 
-  std::expected<GitRepository, GitError> repositories(
+  std::expected<GitRepositories, GitError> repositories(
       const std::string& username) const override;
 
   std::string print_version() const override;

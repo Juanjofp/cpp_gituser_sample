@@ -60,6 +60,14 @@ bool GitUser::operator==(const GitUser& other) const {
   return login == other.login && id == other.id;
 }
 
+int GitUser::get_id() const { return id; }
+
+std::string GitUser::get_login() const { return login; }
+
+std::string GitUser::get_name() const { return name; }
+
+std::string GitUser::get_avatar_url() const { return avatar_url; }
+
 std::string GitUser::to_string() const {
   return std::string{name + ":" + login + ":" + avatar_url +
                      std::to_string(id) + url};

@@ -16,6 +16,12 @@ class GitUser {
 
   bool operator==(const GitUser& other) const;
 
+  // Getters
+  int get_id() const;
+  std::string get_login() const;
+  std::string get_name() const;
+  std::string get_avatar_url() const;
+
   std::string to_string() const;
 
  private:

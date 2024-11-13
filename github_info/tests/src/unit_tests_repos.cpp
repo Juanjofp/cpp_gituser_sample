@@ -19,17 +19,17 @@ class GithubReposTests : public Test {
 };
 
 TEST_F(GithubReposTests, CompareSameReposEqual) {
-  GitRepository one{};
+  GitRepository one{"one", "description"};
 
-  GitRepository two{};
+  GitRepository two{"one", "description"};
 
   ASSERT_THAT(one, Eq(two));
 }
 
 TEST_F(GithubReposTests, CompareDifferentReposNotEqual) {
-  GitRepository one{};
+  GitRepository one{"one", "description"};
 
-  GitRepository two{};
+  GitRepository two{"two", "description"};
 
   ASSERT_THAT(one, Ne(two));
 }
@@ -61,5 +61,15 @@ TEST_F(GithubReposTests, GetInformationAboutRepositoriesOk) {
 
   ASSERT_THAT(repositories.has_value(), Eq(true));
 
-  // ASSERT_THAT(repositories.value(), Eq(expected_repos));
+  ASSERT_THAT(repositories->size(), Eq(1));
+
+  const auto repo = repositories->at(0);
+
+  ASSERT_THAT(repo.has_value(), Eq(true));
+
+  const auto expected_repo = expected_repos->at(0).value().get();
+
+  const auto actual_repo = repo.value().get();
+
+  ASSERT_THAT(*expected_repo, Eq(*actual_repo));
 }

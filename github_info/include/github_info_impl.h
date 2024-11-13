@@ -19,7 +19,7 @@ class GithubInfoImpl : public IGithubInfo {
   std::expected<GitUser, GitError> user(
       const std::string& username) const override;
 
-  std::expected<GitRepository, GitError> repositories(
+  std::expected<GitRepositories, GitError> repositories(
       const std::string& username) const override;
 
   std::string print_version() const override;
@@ -32,6 +32,9 @@ class GithubInfoImpl : public IGithubInfo {
       const RequesterResponse& res) const;
 
   std::expected<GitUser, GitError> user_from_response(
+      const RequesterResponse& res) const;
+
+  std::expected<GitRepositories, GitError> repos_from_response(
       const RequesterResponse& res) const;
 
   const std::shared_ptr<Requester> requester_;
